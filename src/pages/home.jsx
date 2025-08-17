@@ -1,21 +1,16 @@
 import React from "react";
-import { useState } from "react";
-import navigate from "react-router-dom";
 
 function Home() {
-  const navigate = useNavigate();
-
-return (
-  <div>
-    <button onClick={()=>navigate("/Home")}>Home</button>
-    <button>Facility</button>
-    <button>My bookings</button>
-    <button>Me</button>
-    <h1>Welcome to the Home Page</h1>
-    <p>This is the home page of our application.</p>
-  </div>
+  return (
+    <div>
+        <button>Home</button>
+        <button>Facilities</button>
+        <button>My Bookings</button>
+        <button>Me</button>
+      <h1>Welcome to QuickCourt Home page</h1>
+      <p>Your one-stop solution for court management.</p>
+    </div>
   );
-
 }
 
 export default Home;
