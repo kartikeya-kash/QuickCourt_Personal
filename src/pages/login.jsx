@@ -4,14 +4,24 @@ import { useNavigate } from "react-router-dom";
 function Login() {
 const [username, setUsername] = useState("");
 const [password, setPassword] = useState("");
-const [isloggedin , setisloggedin] = useState("");
 const navigate = useNavigate();
 
 
-const handellogin = (e) => {
-    e.preventDefault();
-    window.alert("Login button clicked");
-    navigate("/"); // Redirect to home page after login
+const handellogin = async (e) => {
+  e.preventDefault();
+
+  const response = await fetch("http://localhost:5000/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
+  });
+
+  const data = await response.json();
+  alert(data.message);
+
+  if (response.ok) {
+    navigate("/");
+  }
 };
 
   return (
