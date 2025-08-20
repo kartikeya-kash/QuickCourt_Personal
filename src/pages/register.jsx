@@ -7,15 +7,14 @@ function Register() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const registerindb = async (e) => {
-    e.preventDefault();
+const registerindb = async (e) => {
+  e.preventDefault();
 
-    const formData = { username, email, password };
-
-    const response = await fetch("http://localhost:5000/register", {
+  try {
+    const response = await fetch("http://localhost:5005/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ username, email, password }), 
     });
 
     const data = await response.json();
@@ -24,7 +23,11 @@ function Register() {
     if (response.ok) {
       navigate("/login");
     }
-  };
+  } catch (error) {
+    console.error("❌ Error during registration:", error);
+    alert("Something went wrong. Please try again later." , error);
+  }
+};
 
   return (
     <div>
