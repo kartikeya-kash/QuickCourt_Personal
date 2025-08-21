@@ -6,11 +6,12 @@ import mysql from "mysql2";
 const app = express();
 const PORT = 5005;
 
-// ✅ Allow ALL origins + all methods
+
 app.use(cors());
-app.options("*", cors()); // <-- Handle preflight requests
+app.options("*", cors()); 
 
 app.use(bodyParser.json());
+
 // ✅ MySQL connection
 const db = mysql.createConnection({
   host: "localhost",
@@ -70,6 +71,28 @@ app.post("/login", (req, res) => {
     res.json({ message: "Login successful" });
   });
 });
+
+// username check route
+app.post("/usernamecheck", (req, res) => {
+  const { username } = req.body;
+
+  if (!username) {
+    return res.status(400).json({ exists: false });
+  }
+
+  const query = "SELECT username FROM users WHERE username = ?";
+  db.query(query, [username], (err, result) => {
+    if (err) {
+      console.error("❌ Error checking username:", err);
+      return res.status(500).json({ exists: false });
+    }
+
+    const exists = result.length > 0;
+    res.json({ exists });
+  });
+});
+
+
 
 // ✅ Start server
 app.listen(PORT, () => {

@@ -5,29 +5,61 @@ function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [usernameStatus, setUsernameStatus] = useState(""); // status message
   const navigate = useNavigate();
 
-const registerindb = async (e) => {
-  e.preventDefault();
+  const usrn = (e) => {
+    const value = e.target.value;
+    setUsername(value);
+    usrnamecheck(value);
+  };
 
-  try {
-    const response = await fetch("http://localhost:5005/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, email, password }), 
-    });
-
-    const data = await response.json();
-    alert(data.message);
-
-    if (response.ok) {
-      navigate("/login");
+  const usrnamecheck = async (name) => {
+    if (!name.trim()) {
+      setUsernameStatus(""); 
+      return;
     }
-  } catch (error) {
-    console.error("❌ Error during registration:", error);
-    alert("Something went wrong. Please try again later." , error);
-  }
-};
+
+    try {
+      const response = await fetch("http://localhost:5005/usernamecheck", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: name }),
+      });
+
+      const data = await response.json();
+      if (data.exists) {
+        setUsernameStatus("❌ Username already exists");
+      } else {
+        setUsernameStatus("✅ Username available");
+      }
+    } catch (error) {
+      console.error("❌ Error checking username:", error);
+      setUsernameStatus("⚠️ Could not check username");
+    }
+  };
+
+  const registerindb = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5005/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      const data = await response.json();
+      alert(data.message);
+
+      if (response.ok) {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("❌ Error during registration:", error);
+      alert("Something went wrong. Please try again later.");
+    }
+  };
 
   return (
     <div>
@@ -39,10 +71,19 @@ const registerindb = async (e) => {
             type="text"
             name="username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={usrn}
           />
+          <span
+            style={{
+              marginLeft: "10px",
+              color: usernameStatus.startsWith("✅") ? "green" : "red",
+            }}
+          >
+            {usernameStatus}
+          </span>
         </label>
         <br />
+
         <label>
           Email:
           <input
@@ -53,6 +94,7 @@ const registerindb = async (e) => {
           />
         </label>
         <br />
+
         <label>
           Password:
           <input
@@ -63,6 +105,7 @@ const registerindb = async (e) => {
           />
         </label>
         <br />
+
         <button type="submit">Register</button>
       </form>
 
