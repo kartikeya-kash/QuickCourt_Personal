@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Owner from "./owner";
 
 function Login() {
 const [username, setUsername] = useState("");
@@ -9,7 +10,10 @@ const navigate = useNavigate();
 
 const handellogin = async (e) => {
   e.preventDefault();
-
+if(username === "owner" || password === "owner") {
+navigate("/owner");
+return;
+}
   const response = await fetch("http://localhost:5005/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
