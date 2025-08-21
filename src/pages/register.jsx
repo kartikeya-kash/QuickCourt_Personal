@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
-  const [userType, setUserType] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -66,29 +65,8 @@ function Register() {
     <div>
       <h1>Register Page</h1>
 
-      <form>
-  <input
-    type="radio"
-    name="userType"
-    value="user"
-    id="userTypeUser"
-    onChange={(e) => setUserType(e.target.value)}
-  /> 
-  <label for="userTypeUser">User</label>
-  <br />
-
-  <input
-    type="radio"
-    name="userType"
-    value="admin"
-    id="userTypeAdmin"
-    onChange={(e) => setUserType(e.target.value)}
-  /> 
-  <label for="userTypeAdmin">Admin</label>
-</form>
-
+      
 <div style={{ marginTop: "20px" }}>
-      {userType === "user" ? (
         <form onSubmit={registerindb}>
           <label>
             Username:
@@ -118,15 +96,7 @@ function Register() {
 
           <button type="submit">Register</button>
         </form>
-      ) : userType === "admin" ? (
-        <form> 
-          
-        </form>
-    /*to be implemented for admin registration*/
-
-      ) : (
-        <p>Please select a user type to register.</p>
-      )}
+      
     </div>
 
     <button onClick={() => navigate("/login")}>Go to Login</button>
