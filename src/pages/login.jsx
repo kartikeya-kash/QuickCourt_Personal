@@ -17,9 +17,10 @@ const handellogin = async (e) => {
   });
 
   const data = await response.json();
-  alert(data.message);
+  //alert(data.message);
 
   if (response.ok) {
+    localStorage.setItem("isloggedin", true);
     navigate("/");
   }
 };
