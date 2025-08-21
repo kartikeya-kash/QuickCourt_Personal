@@ -9,11 +9,7 @@ function Home() {
     if (route === "login") return () => navigate("/login");
     if (route === "register") return () => navigate("/register");
     if (route === "home") return () => navigate("/");
-    if (route === "restrictedBookings") return () => {
-      alert("Login to access this feature");
-      navigate("/login");
-    };
-    if (route === "restrictedMe") return () => {
+    if (route === "restrictedBookings" || route === "restrictedMe") return () => {
       alert("Login to access this feature");
       navigate("/login");
     };
@@ -28,6 +24,7 @@ function Home() {
           <button>Facilities</button>
           <button>My Bookings</button>
           <button>Me</button>
+          <button onClick={() => {localStorage.removeItem("isloggedin");navigate("/");}}>Logout</button>
         </div>
       ) : (
         <div>

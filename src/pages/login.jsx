@@ -42,6 +42,7 @@ const handellogin = async (e) => {
         <br />
         <button type="submit">Login</button>
       </form>
+      <button onClick={()=>{navigate("/register")}}>Dont have a account ? register now!</button>
     </div>
   );
 }
