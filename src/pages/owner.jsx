@@ -1,17 +1,14 @@
-import React from "react";
-import { useState } from "react";
-
+import React, { useState } from "react";
 
 const Owner = () => {
   const [addadmi, setAddAdmi] = useState(false);
 
-const addadmin = () => {
-  setAddAdmi(true);
-};
+  const addadmin = () => {
+    setAddAdmi(true);
+  };
 
   return (
     <div>
-
       <h1>Owner Dashboard</h1>
       <p>Total users = <span></span></p> <br />
       <p>Total bookings = <span></span></p><br />
@@ -19,28 +16,50 @@ const addadmin = () => {
       <p>Total Facility Requests = <span></span></p><br />
 
       <button onClick={addadmin}>Add admins</button><br />
-      <button>View Facilitiy request</button><br />
+      <button>View Facility request</button><br />
       <button>Manage Facility</button><br />
       <button>View users</button><br />
 
-      {addadmi && ( 
-      <>
-      <h1>Add Admin</h1>
-      <form>
-        <label>Username:</label>
-        <input type="text" name="name" required /><br />
-        <label>Email:</label>
-        <input type="email" name="email" required /><br />
-        <label>Password:</label>
-        <input type="password" name="password" required /><br />
-        <button type="submit">Add Admin</button>
+      {/*Popup controlled by setAddAdmi */}
+     {addadmi && (
+  <div style={{
+    position: "fixed",
+    top: 0, left: 0,
+    width: "100%", height: "100%",
+    background: "rgba(0,0,0,0.3)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  }}>
+    <div style={{ background: "black", padding: "20px", minWidth: "300px" }}>
+      <h1 style={{ textAlign: "center" }}>Add Admin</h1>
+      <form style={{ textAlign: "center" }}>
+        <div>
+          <label>Admin Username:</label><br />
+          <input type="text" name="name" required />
+        </div>
+        <div>
+          <label>Admin Email:</label><br />
+          <input type="email" name="email" required />
+        </div>
+        <div>
+          <label>Admin Password:</label><br />
+          <input type="password" name="password" required />
+        </div>
+
+        {/* ✅ Centered Buttons */}
+        <div style={{ marginTop: "10px" }}>
+          <button type="submit">Add Admin</button>
+        </div>
+        <div style={{ marginTop: "10px" }}>
+          <button type="button" onClick={() => setAddAdmi(false)}>Close</button>
+        </div>
       </form>
-      <button onClick={() => setAddAdmi(false)}>Back to Dashboard</button>
-      </>
-    ) }
-    
+    </div>
+  </div>
+)}
     </div>
   );
-}
+};
 
 export default Owner;
