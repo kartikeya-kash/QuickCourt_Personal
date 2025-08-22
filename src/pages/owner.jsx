@@ -20,18 +20,18 @@ const Owner = () => {
       <button>Manage Facility</button><br />
       <button>View users</button><br />
 
-      {/*Popup controlled by setAddAdmi */}
-     {addadmi && (
+     
+{addadmi && (
   <div style={{
     position: "fixed",
     top: 0, left: 0,
     width: "100%", height: "100%",
-    background: "rgba(0,0,0,0.3)",
+    background: "rgba(0, 0, 0, 0.76)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
   }}>
-    <div style={{ background: "black", padding: "20px", minWidth: "300px" }}>
+    <div style={{ background: "rgba(72, 70, 70, 1)", padding: "20px", minWidth: "300px" }}>
       <h1 style={{ textAlign: "center" }}>Add Admin</h1>
       <form style={{ textAlign: "center" }}>
         <div>
@@ -47,7 +47,6 @@ const Owner = () => {
           <input type="password" name="password" required />
         </div>
 
-        {/* ✅ Centered Buttons */}
         <div style={{ marginTop: "10px" }}>
           <button type="submit">Add Admin</button>
         </div>
