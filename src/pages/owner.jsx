@@ -9,7 +9,7 @@ const Owner = () => {
   const isowner = JSON.parse(localStorage.getItem("owner") );
 
   useEffect(() => { //this will run when the page render 
-  if (!isloggedIn) {
+  if (isloggedIn) {
   navigate("/");    
 } else if (!isowner) {
   navigate("/");    
