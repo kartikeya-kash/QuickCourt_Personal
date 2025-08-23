@@ -39,9 +39,13 @@ const addadmin = async (e) => {
       const data = await response.json();
       alert(data.message);
 
-      if (response.ok) {
-        alert("admin added")
-      }
+     if(response.ok){
+       setadminusername("");
+      setadminemail("");
+      setadminpassword("");
+      setAddAdmi(false);
+     }
+
     } catch (error) {
       console.error("❌ Error during adding admin:", error);
       alert("Something went wrong. Please try again later.");
