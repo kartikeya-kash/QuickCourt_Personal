@@ -9,14 +9,13 @@ const Owner = () => {
   const isowner = JSON.parse(localStorage.getItem("owner") );
 
   useEffect(() => { //this will run when the page render 
-  if (isloggedIn) {
-    navigate("/");
-  } else if (!isowner) {
-    navigate("/");
-  }
-  else{
-    setLoading(false)
-  }
+  if (!isloggedIn) {
+  navigate("/");    
+} else if (!isowner) {
+  navigate("/");    
+} else {
+  setLoading(false); 
+}
 }, [isloggedIn, isowner, navigate]);  //If you put some variables inside (like [isloggedIn, isowner, navigate]):
                                       // → It runs the effect every time one of those variables changes.
 
@@ -24,9 +23,14 @@ const Owner = () => {
   return (<h2>Checking access...</h2>);
 }
 
+const addadmin = ()=>{
+
+}
+
   return (
     <div>
       <h1>Owner Dashboard</h1>
+      <p>Total Admin = <span></span></p> <br />
       <p>Total users = <span></span></p> <br />
       <p>Total bookings = <span></span></p><br />
       <p>Total Facility = <span></span></p><br />
@@ -35,7 +39,9 @@ const Owner = () => {
       <button onClick={() => setAddAdmi(true)}>Add admins</button><br />
       <button>View Facility request</button><br />
       <button>Manage Facility</button><br />
+      <button>Manage admins</button><br />
       <button>View users</button><br />
+      
 
      
 {addadmi && (
@@ -49,7 +55,7 @@ const Owner = () => {
     alignItems: "center"
   }}>
     <div style={{ background: "rgba(72, 70, 70, 1)", padding: "20px", minWidth: "300px" }}>
-      <h1 style={{ textAlign: "center" }}>Add Admin</h1>
+      <h1 style={{ textAlign: "center" }} >Add Admin</h1>
       <form style={{ textAlign: "center" }}>
         <div>
           <label>Admin Username:</label><br />
@@ -65,7 +71,7 @@ const Owner = () => {
         </div>
 
         <div style={{ marginTop: "10px" }}>
-          <button type="submit">Add Admin</button>
+          <button type="submit" onClick={addadmin}>Add Admin</button>
         </div>
         <div style={{ marginTop: "10px" }}>
           <button type="button" onClick={() => setAddAdmi(false)}>Close</button>
