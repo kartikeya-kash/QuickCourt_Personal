@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
 
 const Admin = () => {
-  const navigate = useNavigate();
-  const [role, setRole] = useState(undefined); 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { username, password } = location.state || {};
+    localStorage.setItem("adminusername", username);
+    const adminusername = localStorage.getItem("username");
+    const [role, setRole] = useState(undefined); 
 
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
@@ -20,13 +26,20 @@ const Admin = () => {
     return <p>Loading...</p>; 
   }
 
+const logout = () => {
+  localStorage.removeItem("adminusername");
+  localStorage.removeItem("isloggedin");
+  localStorage.removeItem("role");  
+  navigate("/");
+};
   return (
         <>
-            <h1>Admin</h1>
+            <h1>Admin name= {adminusername}</h1>
             <p>Your facility (total = <span></span>)</p>  {/*if admin click on one of the facility then all information and booking details must be shown*/}
             <div></div> {/*show all the facility which are aproved by the owner*/}
             <button>Add new Facility</button> <br />
             <button>check facility approve status</button>
+            <button onClick={logout}>logout</button>
         </>
     );
 };

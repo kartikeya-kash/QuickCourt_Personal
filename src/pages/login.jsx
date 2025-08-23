@@ -32,7 +32,7 @@ const handellogin = async (e) => {
       localStorage.setItem("isloggedin", true);
 
       if (data.role === "admin") {
-        navigate("/admin");
+        navigate("/admin", {state: {username, password}}); //send username and password to admin page
       } else {
         navigate("/"); // normal user home
       }
