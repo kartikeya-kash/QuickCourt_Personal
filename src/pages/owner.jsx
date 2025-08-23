@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Owner = () => {
+  const navigate = useNavigate();
   const [addadmi, setAddAdmi] = useState(false);
+  const isloggedIn = JSON.parse(localStorage.getItem("isloggedin"));
+  const isowner = JSON.parse(localStorage.getItem("owner") );
 
-  const addadmin = () => {
-    setAddAdmi(true);
-  };
+  useEffect(() => { //this will run when the page render 
+  if (!isloggedIn) {
+    navigate("/");
+  } else if (!isowner) {
+    navigate("/");
+  }
+}, [isloggedIn, isowner, navigate]);
 
   return (
     <div>
@@ -15,7 +23,7 @@ const Owner = () => {
       <p>Total Facility = <span></span></p><br />
       <p>Total Facility Requests = <span></span></p><br />
 
-      <button onClick={addadmin}>Add admins</button><br />
+      <button onClick={() => setAddAdmi(true)}>Add admins</button><br />
       <button>View Facility request</button><br />
       <button>Manage Facility</button><br />
       <button>View users</button><br />
