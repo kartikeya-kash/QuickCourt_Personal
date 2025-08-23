@@ -12,7 +12,7 @@ app.options("*", cors());
 
 app.use(bodyParser.json());
 
-// ✅ MySQL connection
+//MySQL connection
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -22,13 +22,13 @@ const db = mysql.createConnection({
 
 db.connect((err) => {
   if (err) {
-    console.error("❌ MySQL connection failed:", err);
+    console.error("MySQL connection failed:", err);
   } else {
-    console.log("✅ Connected to MySQL database");
+    console.log("Connected to MySQL database");
   }
 });
 
-// ✅ Register route
+//  Register route
 app.post("/register", (req, res) => {
   const { username, email, password } = req.body;
 
@@ -53,7 +53,7 @@ app.post("/register", (req, res) => {
   });
 });
 
-// ✅ Login route
+//  Login route
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
 
@@ -89,6 +89,27 @@ app.post("/usernamecheck", (req, res) => {
 
     const exists = result.length > 0;
     res.json({ exists });
+  });
+});
+
+// admin register
+app.post("/adminregister", (req, res) => {
+  const { adminusername, adminemail, adminpassword } = req.body;
+
+  const checkUser = "SELECT * FROM users WHERE email = ?";
+  db.query(checkUser, [adminemail], (err, result) => {
+    if (err) return res.status(500).json({ message: "Database error" });
+    if (result.length > 0) {
+      return res.status(400).json({ message: "admin already exists" });
+    }
+
+    const insertUser =
+      "INSERT INTO admin (username, email, password) VALUES (?, ?, ?)";
+    db.query(insertUser, [adminusername, adminemail, adminpassword], (err) => {
+      if (err)
+        return res.status(500).json({ message: "Error registering admin" });
+      res.json({ message: "Admin registered successfully" });
+    });
   });
 });
 

@@ -5,6 +5,10 @@ const Owner = () => {
   const navigate = useNavigate();
   const [addadmi, setAddAdmi] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [adminusername, setadminusername] =useState("");
+  const [adminemail, setadminemail] =useState("");
+  const [adminpassword, setadminpassword] =useState("");
+
   const isloggedIn = JSON.parse(localStorage.getItem("isloggedin"));
   const isowner = JSON.parse(localStorage.getItem("owner") );
 
@@ -23,9 +27,28 @@ const Owner = () => {
   return (<h2>Checking access...</h2>);
 }
 
-const addadmin = ()=>{
+const addadmin = async (e) => {
+    e.preventDefault();
 
-}
+    try {
+      const response = await fetch("http://localhost:5005/adminregister", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ adminusername, adminemail, adminpassword }),
+      });
+
+      const data = await response.json();
+      alert(data.message);
+
+      if (response.ok) {
+        alert("admin added")
+      }
+    } catch (error) {
+      console.error("❌ Error during adding admin:", error);
+      alert("Something went wrong. Please try again later.");
+    }
+  };
+
 
   return (
     <div>
@@ -59,15 +82,15 @@ const addadmin = ()=>{
       <form style={{ textAlign: "center" }}>
         <div>
           <label>Admin Username:</label><br />
-          <input type="text" name="name" required />
+          <input type="text" name="name" required value={adminusername} onChange={(e)=> setadminusername(e.target.value)}/>
         </div>
         <div>
           <label>Admin Email:</label><br />
-          <input type="email" name="email" required />
+          <input type="email" name="email" required value={adminemail} onChange={(e)=> setadminemail(e.target.value)}/>
         </div>
         <div>
           <label>Admin Password:</label><br />
-          <input type="password" name="password" required />
+          <input type="password" name="password" required value={adminpassword} onChange={(e)=> setadminpassword(e.target.value)}/>
         </div>
 
         <div style={{ marginTop: "10px" }}>
