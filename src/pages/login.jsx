@@ -11,6 +11,7 @@ const navigate = useNavigate();
 const handellogin = async (e) => {
   e.preventDefault();
 if(username === "owner" || password === "owner") {
+localStorage.setItem("owner", true);
 navigate("/owner");
 return;
 }

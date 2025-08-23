@@ -7,13 +7,13 @@ const Owner = () => {
   const isloggedIn = JSON.parse(localStorage.getItem("isloggedin"));
   const isowner = JSON.parse(localStorage.getItem("owner") );
 
-  useEffect(() => { //this will run when the page render 
-  if (!isloggedIn) {
+   useEffect(() => { //this will run when the page render 
+  if (isloggedIn) {
     navigate("/");
   } else if (!isowner) {
     navigate("/");
   }
-}, [isloggedIn, isowner, navigate]);
+}, [isloggedIn, isowner, navigate]); 
 
   return (
     <div>
