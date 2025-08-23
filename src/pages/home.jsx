@@ -15,6 +15,12 @@ function Home() {
     };
   };
 
+  const logout = ()=>{
+      localStorage.removeItem("isloggedin");
+      localStorage.removeItem("role"); 
+      navigate("/");
+  }
+
 
 
   return (
@@ -26,7 +32,7 @@ function Home() {
           <button>Facilities</button>
           <button>My Bookings</button>
           <button>Me</button>
-          <button onClick={() => {localStorage.removeItem("isloggedin");navigate("/");}}>Logout</button>
+          <button onClick={logout}>Logout</button>
         </div>
       ) : (
         <div>
