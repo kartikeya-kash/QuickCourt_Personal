@@ -9,8 +9,12 @@ const Owner = () => {
   const [adminemail, setadminemail] =useState("");
   const [adminpassword, setadminpassword] =useState("");
 
-  const isloggedIn = JSON.parse(localStorage.getItem("isloggedin"));
+
+    useEffect(() => {
+    const isloggedIn = JSON.parse(localStorage.getItem("isloggedin"));
   const isowner = JSON.parse(localStorage.getItem("owner") );
+  }, []);
+ 
 
   useEffect(() => { //this will run when the page render 
   if (isloggedIn) {
