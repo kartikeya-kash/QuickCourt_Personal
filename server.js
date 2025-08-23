@@ -54,6 +54,7 @@ app.post("/register", (req, res) => {
 });
 
 //  Login route
+// Login route
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
 
@@ -61,14 +62,35 @@ app.post("/login", (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-  const query = "SELECT * FROM users WHERE username = ? AND password = ?";
-  db.query(query, [username, password], (err, result) => {
+  // First check in users table
+  const userQuery = "SELECT * FROM users WHERE username = ? AND password = ?";
+  db.query(userQuery, [username, password], (err, userResult) => {
     if (err) return res.status(500).json({ message: "Database error" });
-    if (result.length === 0) {
-      return res.status(401).json({ message: "Invalid credentials" });
+
+    if (userResult.length > 0) {
+      return res.json({
+        message: "Login successful",
+        role: "user",
+        data: userResult[0],
+      });
     }
 
-    res.json({ message: "Login successful" });
+    // If not found in users, check in admins
+    const adminQuery = "SELECT * FROM admin WHERE username = ? AND password = ?";
+    db.query(adminQuery, [username, password], (err, adminResult) => {
+      if (err) return res.status(500).json({ message: "Database error" });
+
+      if (adminResult.length > 0) {
+        return res.json({
+          message: "Login successful",
+          role: "admin",
+          data: adminResult[0],
+        });
+      }
+
+      // If neither table has a match
+      return res.status(401).json({ message: "Invalid credentials" });
+    });
   });
 });
 
