@@ -32,13 +32,14 @@ const logout = () => {
   localStorage.removeItem("role");  
   navigate("/");
 };
+
   return (
         <>
             <h1>Admin name= {adminusername}</h1>
             <p>Your facility (total = <span></span>)</p>  {/*if admin click on one of the facility then all information and booking details must be shown*/}
             <div></div> {/*show all the facility which are aproved by the owner*/}
             <button>Add new Facility</button> <br />
-            <button>check facility approve status</button>
+            <button>check facility approve status</button> <br />
             <button onClick={logout}>logout</button>
         </>
     );
