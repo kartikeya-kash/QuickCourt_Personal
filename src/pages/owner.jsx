@@ -4,16 +4,25 @@ import { useNavigate } from "react-router-dom";
 const Owner = () => {
   const navigate = useNavigate();
   const [addadmi, setAddAdmi] = useState(false);
+  const [loading, setLoading] = useState(true);
   const isloggedIn = JSON.parse(localStorage.getItem("isloggedin"));
   const isowner = JSON.parse(localStorage.getItem("owner") );
 
-   useEffect(() => { //this will run when the page render 
+  useEffect(() => { //this will run when the page render 
   if (isloggedIn) {
     navigate("/");
   } else if (!isowner) {
     navigate("/");
   }
-}, [isloggedIn, isowner, navigate]); 
+  else{
+    setLoading(false)
+  }
+}, [isloggedIn, isowner, navigate]);  //If you put some variables inside (like [isloggedIn, isowner, navigate]):
+                                      // → It runs the effect every time one of those variables changes.
+
+  if(loading){
+  return (<h2>Checking access...</h2>);
+}
 
   return (
     <div>
