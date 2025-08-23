@@ -9,22 +9,17 @@ const Owner = () => {
   const [adminemail, setadminemail] =useState("");
   const [adminpassword, setadminpassword] =useState("");
 
-
-    useEffect(() => {
-    const isloggedIn = JSON.parse(localStorage.getItem("isloggedin"));
-  const isowner = JSON.parse(localStorage.getItem("owner") );
-  }, []);
+const isowner = localStorage.getItem("role");
+  
  
 
   useEffect(() => { //this will run when the page render 
-  if (isloggedIn) {
-  navigate("/");    
-} else if (!isowner) {
+  if (isowner!="owner") {
   navigate("/");    
 } else {
   setLoading(false); 
 }
-}, [isloggedIn, isowner, navigate]);  //If you put some variables inside (like [isloggedIn, isowner, navigate]):
+}, [isowner, navigate]);  //If you put some variables inside (like [isloggedIn, isowner, navigate]):
                                       // → It runs the effect every time one of those variables changes.
 
   if(loading){
@@ -54,6 +49,13 @@ const addadmin = async (e) => {
   };
 
 
+  const logout = ()=> {
+    localStorage.removeItem("isloggedin");
+    localStorage.removeItem("role");
+    navigate("/");
+  }
+
+
   return (
     <div>
       <h1>Owner Dashboard</h1>
@@ -68,6 +70,7 @@ const addadmin = async (e) => {
       <button>Manage Facility</button><br />
       <button>Manage admins</button><br />
       <button>View users</button><br />
+      <button onClick={logout}>Logout</button>
       
 
      
