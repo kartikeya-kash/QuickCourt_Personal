@@ -69,6 +69,10 @@ const addnewfacility = () => {
           <input type="text" name="name" required/>
         </div>
         <div>
+          <label>Facility Phone number:</label>
+          <input type="text" name="name" required/>
+        </div>
+        <div>
           <label>Facility email:</label>
           <input type="text" name="name" required/>
         </div>
