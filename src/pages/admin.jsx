@@ -17,7 +17,6 @@ const Admin = () => {
 
   const adminusernamefromlocal = localStorage.getItem("adminusername");
 
-  
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
     setRole(storedRole ? storedRole : null);
@@ -33,7 +32,6 @@ const Admin = () => {
     return <p>Loading...</p>;
   }
 
-  
   const logout = () => {
     localStorage.removeItem("adminusername");
     localStorage.removeItem("isloggedin");
@@ -41,23 +39,22 @@ const Admin = () => {
     navigate("/");
   };
 
-  
   const addnewfacility = () => {
     setAddFacilitypop(true);
   };
 
-const handleAddFacility = (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const data = Object.fromEntries(formData.entries());
+  const handleAddFacility = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
 
-  // Get multiple selected sports separately
-  data.sports = formData.getAll("sports");
+    // Get multiple selected sports separately
+    data.sports = formData.getAll("sports");
 
-  console.log("New Facility Data:", data);
+    console.log("New Facility Data:", data);
 
-  setAddFacilitypop(false);
-};
+    setAddFacilitypop(false);
+  };
 
   return (
     <>
@@ -67,11 +64,9 @@ const handleAddFacility = (e) => {
       </p>
       {/* if admin clicks on facility → show info and bookings */}
       <div>{/* show approved facilities list here */}</div>
-
       <button onClick={addnewfacility}>Add new Facility</button> <br />
       <button>Check facility approve status</button> <br />
       <button onClick={logout}>Logout</button>
-
       {/* Facility Modal */}
       {addfacilitypop && (
         <div
@@ -122,24 +117,76 @@ const handleAddFacility = (e) => {
                 <input type="file" name="facilityImages" multiple />
               </div>
 
-<div style={{ marginTop: "10px" , marginLeft:"70px"}}> 
-  <label >Facility sport:</label>
-  <br />
-  <div style={{ border: "1px solid gray", width: "200px", padding: "5px", borderRadius: "5px" }}>
-    <label><input type="checkbox" name="sports" value="Football" /> Football</label><br/>
-    <label><input type="checkbox" name="sports" value="Cricket" /> Cricket</label><br/>
-    <label><input type="checkbox" name="sports" value="Badminton" /> Badminton</label><br/>
-    <label><input type="checkbox" name="sports" value="Tennis" /> Tennis</label><br/>
-    <label><input type="checkbox" name="sports" value="Swimming" /> Swimming</label><br/>
-    <label><input type="checkbox" name="sports" value="Gym" /> Gym</label><br/>
-    <label><input type="checkbox" name="sports" value="Yoga" /> Yoga</label><br/>
-    <label><input type="checkbox" name="sports" value="Basketball" /> Basketball</label><br/>
-    <label><input type="checkbox" name="sports" value="Volleyball" /> Volleyball</label><br/>
-    <label><input type="checkbox" name="sports" value="Table Tennis" /> Table Tennis</label><br/>
-    <label><input type="checkbox" name="sports" value="Squash" /> Squash</label><br/>
-    <label><input type="checkbox" name="sports" value="Athletics" /> Athletics</label>
-  </div>
-</div>
+              <div style={{ marginTop: "10px", marginLeft: "70px" }}>
+                <label>Facility sport:</label>
+                <br />
+                <div
+                  style={{
+                    border: "1px solid gray",
+                    width: "200px",
+                    padding: "5px",
+                    borderRadius: "20px",
+                  }}
+                >
+                  <label>
+                    <input type="checkbox" name="sports" value="Football" />{" "}
+                    Football
+                  </label>
+                  <br />
+                  <label>
+                    <input type="checkbox" name="sports" value="Cricket" />{" "}
+                    Cricket
+                  </label>
+                  <br />
+                  <label>
+                    <input type="checkbox" name="sports" value="Badminton" />{" "}
+                    Badminton
+                  </label>
+                  <br />
+                  <label>
+                    <input type="checkbox" name="sports" value="Tennis" />{" "}
+                    Tennis
+                  </label>
+                  <br />
+                  <label>
+                    <input type="checkbox" name="sports" value="Swimming" />{" "}
+                    Swimming
+                  </label>
+                  <br />
+                  <label>
+                    <input type="checkbox" name="sports" value="Gym" /> Gym
+                  </label>
+                  <br />
+                  <label>
+                    <input type="checkbox" name="sports" value="Yoga" /> Yoga
+                  </label>
+                  <br />
+                  <label>
+                    <input type="checkbox" name="sports" value="Basketball" />{" "}
+                    Basketball
+                  </label>
+                  <br />
+                  <label>
+                    <input type="checkbox" name="sports" value="Volleyball" />{" "}
+                    Volleyball
+                  </label>
+                  <br />
+                  <label>
+                    <input type="checkbox" name="sports" value="Table Tennis" />{" "}
+                    Table Tennis
+                  </label>
+                  <br />
+                  <label>
+                    <input type="checkbox" name="sports" value="Squash" />{" "}
+                    Squash
+                  </label>
+                  <br />
+                  <label>
+                    <input type="checkbox" name="sports" value="Athletics" />{" "}
+                    Athletics
+                  </label>
+                </div>
+              </div>
               <div style={{ marginTop: "10px" }}>
                 <button type="submit">Add Facility</button>
               </div>
