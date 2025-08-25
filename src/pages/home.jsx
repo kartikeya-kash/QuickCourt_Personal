@@ -8,6 +8,7 @@ function Home() {
   const logout = ()=>{
       localStorage.removeItem("isloggedin");
       localStorage.removeItem("role"); 
+      localStorage.removeItem("username");
       navigate("/");
   }
 

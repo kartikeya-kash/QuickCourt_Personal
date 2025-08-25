@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 function Me() {
   const navigate = useNavigate();
-  const isloggedIn = (localStorage.getItem("isloggedin") || "false");
+  const isloggedIn = (localStorage.getItem("isloggedin") || false);
+  const username = localStorage.getItem("username") || "";
   
 
   const logout = ()=>{
       localStorage.removeItem("isloggedin");
       localStorage.removeItem("role"); 
+      localStorage.removeItem("username");
       navigate("/");
   }
 
@@ -16,7 +18,7 @@ function Me() {
     <div>
       {isloggedIn ? (
         <div>
-          <h1>Welcome to your profile</h1>
+          <h1>Welcome {username}</h1>
           <button onClick={()=>navigate("")}>Home</button>
           <button onClick={()=>navigate("/facility")}>Facilities</button>
           <button onClick={()=>navigate("/mybookings")}>My Bookings</button>
