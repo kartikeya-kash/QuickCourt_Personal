@@ -19,7 +19,7 @@ function Home() {
       {isloggedIn ? (
         <div>
           <h1>Welcome user</h1>
-          <button onClick={()=>navigate("")}>Home</button>
+          <button onClick={()=>navigate("/")}>Home</button>
           <button onClick={()=>navigate("/facility")}>Facilities</button>
           <button onClick={()=>navigate("/mybookings")}>My Bookings</button>
           <button onClick={()=>navigate("/me")}>Me</button>
