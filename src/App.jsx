@@ -6,6 +6,7 @@ import Register from "./pages/register";
 import Owner from "./pages/owner"; 
 import Admin from "./pages/admin";
 import Facility from "./pages/facility";
+import Me from "./pages/me";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="/owner" element={<Owner />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/facility" element={<Facility />} />
+      <Route path="/me" element={<Me />} />
       {/* Add more routes as needed */}
 
     </Routes>
