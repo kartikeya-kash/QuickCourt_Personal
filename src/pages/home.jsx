@@ -9,6 +9,7 @@ function Home() {
     if (route === "login") return () => navigate("/login");
     if (route === "register") return () => navigate("/register");
     if (route === "home") return () => navigate("/");
+    if (route === "facility") return () => navigate("/facility");
     if (route === "restrictedBookings" || route === "restrictedMe") return () => {
       alert("Login to access this feature");
       navigate("/login");
@@ -40,7 +41,7 @@ function Home() {
           <button onClick={nav("register")}>Register</button>
           <br />
           <button onClick={nav("home")}>Home</button>
-          <button>Facilities</button>
+          <button onClick={navigate("/facility")}>Facilities</button>
           <button onClick={nav("restrictedBookings")}>My Bookings</button>
           <button onClick={nav("restrictedMe")}>Me</button>
         </div>
