@@ -5,17 +5,6 @@ function Home() {
   const navigate = useNavigate();
   const isloggedIn = JSON.parse(localStorage.getItem("isloggedin") || "false");
 
-  const nav = (route) => {
-    if (route === "login") return () => navigate("/login");
-    if (route === "register") return () => navigate("/register");
-    if (route === "home") return () => navigate("/");
-    if (route === "facility") return () => navigate("/facility");
-    if (route === "restrictedBookings" || route === "restrictedMe") return () => {
-      alert("Login to access this feature");
-      navigate("/login");
-    };
-  };
-
   const logout = ()=>{
       localStorage.removeItem("isloggedin");
       localStorage.removeItem("role"); 
@@ -29,21 +18,21 @@ function Home() {
       {isloggedIn ? (
         <div>
           <h1>Welcome user</h1>
-          <button onClick={nav("home")}>Home</button>
-          <button>Facilities</button>
-          <button>My Bookings</button>
-          <button>Me</button>
+          <button onClick={()=>navigate("")}>Home</button>
+          <button onClick={()=>navigate("/facility")}>Facilities</button>
+          <button onClick={()=>navigate("/mybookings")}>My Bookings</button>
+          <button onClick={()=>navigate("/me")}>Me</button>
           <button onClick={logout}>Logout</button>
         </div>
       ) : (
         <div>
-          <button onClick={nav("login")}>Login</button>
-          <button onClick={nav("register")}>Register</button>
+          <button onClick={()=>navigate("/login")}>Login</button>
+          <button onClick={()=>navigate("/register")}>Register</button>
           <br />
-          <button onClick={nav("home")}>Home</button>
-          <button onClick={navigate("/facility")}>Facilities</button>
-          <button onClick={nav("restrictedBookings")}>My Bookings</button>
-          <button onClick={nav("restrictedMe")}>Me</button>
+          <button onClick={()=>navigate("/")}>Home</button>
+          <button onClick={()=>navigate("/facility")}>Facilities</button>
+          <button onClick={()=>alert("Login to access this feature")}>My Bookings</button>
+          <button onClick={()=>alert("Login to access this feature")}>Me</button>
         </div>
       )}
 
