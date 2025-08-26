@@ -135,28 +135,71 @@ app.post("/adminregister", (req, res) => {
   });
 });
 
-//  facility route
-app.post("/facility", (req, res) => {
-  const { username, email, password } =  req.body;
 
-  if (!username || !email || !password) {
-    return res.status(400).json({ message: "All fields are required" });
+// facility route
+app.post("/facility", (req, res) => {
+  const {
+    facilityId,
+    facilityName,
+    facilityPhone,
+    facilityEmail,
+    facilityLocation,
+    sports,
+    adminusername,
+  } = req.body;
+
+  if (
+    !facilityId ||
+    !facilityName ||
+    !facilityPhone ||
+    !facilityEmail ||
+    !facilityLocation ||
+    !adminusername
+  ) {
+    return res
+      .status(400)
+      .json({ message: "All required fields must be filled" });
   }
 
-  const checkUser = "SELECT * FROM users WHERE email = ?";
-  db.query(checkUser, [email], (err, result) => {
+  // handle uploaded files
+  const imageFilenames = req.files.map((file) => file.filename);
+
+  const checkFacility = "SELECT * FROM facility WHERE facilityId = ?";
+  db.query(checkFacility, [facilityId], (err, result) => {
     if (err) return res.status(500).json({ message: "Database error" });
+
     if (result.length > 0) {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ message: "Facility already exists" });
     }
 
-    const insertUser =
-      "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-    db.query(insertUser, [username, email, password], (err) => {
-      if (err)
-        return res.status(500).json({ message: "Error registering user" });
-      res.json({ message: "User registered successfully" });
-    });
+    const insertFacility = `
+      INSERT INTO facility 
+      (facilityId, facilityName, facilityPhone, facilityEmail, facilityLocation, facilityImages, sports, adminusername) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    db.query(
+      insertFacility,
+      [
+        facilityId,
+        facilityName,
+        facilityPhone,
+        facilityEmail,
+        facilityLocation,
+        JSON.stringify(imageFilenames), // ✅ filenames array
+        JSON.stringify([].concat(sports || [])), // make sure sports is an array
+        adminusername,
+      ],
+      (err) => {
+        if (err) {
+          console.error("❌ Error inserting facility:", err);
+          return res.status(500).json({ message: "Error adding facility" });
+        }
+        res.json({
+          message: "✅ Facility added successfully (waiting for approval)",
+        });
+      }
+    );
   });
 });
 

@@ -46,16 +46,13 @@ const Admin = () => {
   const handleAddFacility = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
-
-    // Get multiple selected sports separately
-    data.sports = formData.getAll("sports");
+    formData.append("adminusername", adminusernamefromlocal);
 
     try {
       const response = await fetch("http://localhost:5005/facility", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data), //send form data here
+        body: JSON.stringify(FormData), //send form data here
       });
 
       const resData = await response.json();
