@@ -8,6 +8,7 @@ const Admin = () => {
 
   const [role, setRole] = useState(undefined);
   const [addfacilitypop, setAddFacilitypop] = useState(false);
+  const [checkfacility, setcheckfacility] = useState(false);
 
   useEffect(() => {
     if (username) {
@@ -76,6 +77,10 @@ const Admin = () => {
     setAddFacilitypop(false);
   };
 
+  const handelcheckfacility = () => {
+    setcheckfacility(true);
+  };
+
   return (
     <>
       <h1>Admin name = {adminusernamefromlocal}</h1>
@@ -85,7 +90,10 @@ const Admin = () => {
       {/* if admin clicks on facility → show info and bookings */}
       <div>{/* show approved facilities list here */}</div>
       <button onClick={addnewfacility}>Add new Facility</button> <br />
-      <button>Check facility approve status</button> <br />
+      <button onClick={handelcheckfacility}>
+        Check facility approve status
+      </button>{" "}
+      <br />
       <button onClick={logout}>Logout</button>
       {/* Facility Modal */}
       {addfacilitypop && (
@@ -216,6 +224,34 @@ const Admin = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+      {checkfacility && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "rgba(0, 0, 0, 0.76)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              background: "rgba(72, 70, 70, 1)",
+              padding: "20px",
+              minWidth: "300px",
+              borderRadius: "8px",
+            }}
+          >
+            <h2>Facility approved status</h2> <br />
+            <div>{/* show facility status here */}</div>
+            <button onClick={() => setcheckfacility(false)}>close</button>
           </div>
         </div>
       )}
