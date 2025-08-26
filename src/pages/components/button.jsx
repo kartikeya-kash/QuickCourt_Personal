@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Button = ({ text, onClick, color }) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper color={color}>
       <div
         aria-label="User Login Button"
         tabIndex={0}
@@ -31,11 +31,8 @@ const StyledWrapper = styled.div`
       #2e8eff 0%,
       rgba(46, 142, 255, 0) 30%
     );
-    background-color: {
-       {
-        if(color=='red')?'red': "rgba(46, 142, 255, 0.2)";
-      }
-    }
+    background-color: ${(props) =>
+      props.color === "red" ? "red" : "rgba(46, 142, 255, 0.2)"};
     display: flex;
     align-items: center;
     justify-content: center;
