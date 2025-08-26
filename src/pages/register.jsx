@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Input from "./components/input";
+import Button from "./components/button";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -67,53 +69,47 @@ function Register() {
 
       <div style={{ marginTop: "20px" }}>
         <form onSubmit={registerindb}>
-          <label>
-            Username:
-            <input
-              type="text"
-              name="username"
-              value={username}
-              onChange={usrn}
-            />
-            <span
-              style={{
-                marginLeft: "10px",
-                color: usernameStatus.startsWith("✅") ? "green" : "red",
-              }}
-            >
-              {usernameStatus}
-            </span>
-          </label>
+          <Input
+            type="text"
+            name="username"
+            label="Username"
+            value={username}
+            onChange={usrn}
+          />
+          <span
+            style={{
+              marginLeft: "10px",
+              color: usernameStatus.startsWith("✅") ? "green" : "red",
+            }}
+          >
+            {usernameStatus}
+          </span>
+
           <br />
 
-          <label>
-            Email:
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
+          <Input
+            type="email"
+            name="email"
+            label="Email"
+            value={email}
+            onChange={setEmail}
+          />
           <br />
 
-          <label>
-            Password:
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
+          <Input
+            type="password"
+            name="password"
+            label="Username"
+            value={password}
+            onChange={setPassword}
+          />
           <br />
-
-          <button type="submit">Register</button>
+          <Button text="Register" onClick={registerindb} />
         </form>
       </div>
 
-      <button onClick={() => navigate("/login")}>Go to Login</button>
-      <button onClick={() => navigate("/")}>Go to Home</button>
+      <Button text="Login" onClick={() => navigate("/login")} />
+      <Button text="Home" onClick={() => navigate("/")} />
     </div>
   );
 }
