@@ -104,7 +104,6 @@ const Owner = () => {
               <ul>
                 {usersdata.map((f) => (
                   <p>
-                    {" "}
                     ID:{f.id}, Name:{f.username}, Email ID:
                     <strong>{f.email}</strong>
                   </p>
