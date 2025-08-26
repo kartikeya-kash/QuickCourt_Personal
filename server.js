@@ -161,9 +161,6 @@ app.post("/facility", (req, res) => {
       .json({ message: "All required fields must be filled" });
   }
 
-  // handle uploaded files
-  const imageFilenames = req.files.map((file) => file.filename);
-
   const checkFacility = "SELECT * FROM facility WHERE facilityId = ?";
   db.query(checkFacility, [facilityId], (err, result) => {
     if (err) return res.status(500).json({ message: "Database error" });
@@ -172,10 +169,19 @@ app.post("/facility", (req, res) => {
       return res.status(400).json({ message: "Facility already exists" });
     }
 
+    let sportsArray = [];
+
+if (Array.isArray(sports)) {
+  sportsArray = sports;  // already multiple
+} else if (typeof sports === "string") {
+  sportsArray = [sports]; // single value → wrap in array
+}
+
+
     const insertFacility = `
       INSERT INTO facility 
-      (facilityId, facilityName, facilityPhone, facilityEmail, facilityLocation, facilityImages, sports, adminusername) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      (facilityId, facilityName, facilityPhone, facilityEmail, facilityLocation, sports, adminusername) 
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
     db.query(
@@ -186,8 +192,7 @@ app.post("/facility", (req, res) => {
         facilityPhone,
         facilityEmail,
         facilityLocation,
-        JSON.stringify(imageFilenames), // ✅ filenames array
-        JSON.stringify([].concat(sports || [])), // make sure sports is an array
+        JSON.stringify([].concat(sports || [])), // make sure it's an array
         adminusername,
       ],
       (err) => {

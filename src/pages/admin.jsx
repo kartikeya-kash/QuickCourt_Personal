@@ -45,21 +45,28 @@ const Admin = () => {
 
   const handleAddFacility = async (e) => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
-    formData.append("adminusername", adminusernamefromlocal);
+    const data = Object.fromEntries(formData.entries());
+
+    // ✅ Collect all selected sports properly
+    data.sports = formData.getAll("sports");
+
+    // Also append adminusername
+    data.adminusername = adminusernamefromlocal;
 
     try {
       const response = await fetch("http://localhost:5005/facility", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(FormData), //send form data here
+        body: JSON.stringify(data), // send as JSON
       });
 
       const resData = await response.json();
       alert(resData.message);
 
       if (response.ok) {
-        alert("Facility send for approval");
+        alert("Facility sent for approval ✅");
       }
     } catch (error) {
       console.error("❌ Error adding new facility:", error);
