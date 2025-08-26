@@ -9,6 +9,7 @@ const Admin = () => {
   const [role, setRole] = useState(undefined);
   const [addfacilitypop, setAddFacilitypop] = useState(false);
   const [checkfacility, setcheckfacility] = useState(false);
+  const [facilityStatus, setFacilityStatus] = useState([]);
 
   useEffect(() => {
     if (username) {
@@ -77,8 +78,19 @@ const Admin = () => {
     setAddFacilitypop(false);
   };
 
-  const handelcheckfacility = () => {
+  const handelcheckfacility = async () => {
     setcheckfacility(true);
+    try {
+      const response = await fetch(
+        `http://localhost:5005/getfacilityapproval?adminusername=${adminusernamefromlocal}`
+      );
+      const data = await response.json();
+      setFacilityStatus(data);
+      setcheckfacility(true);
+    } catch (error) {
+      console.error("❌ Error fetching facility approval:", error);
+      alert("Failed to fetch facility approval status");
+    }
   };
 
   return (
@@ -250,7 +262,22 @@ const Admin = () => {
             }}
           >
             <h2>Facility approved status</h2> <br />
-            <div>{/* show facility status here */}</div>
+            <div>
+              {/* show facility status here */}
+              <div>
+                {facilityStatus.length === 0 ? (
+                  <p>No facilities found.</p>
+                ) : (
+                  <ul>
+                    {facilityStatus.map((f) => (
+                      <li key={f.facilityId}>
+                        {f.facilityName} → <strong>{f.status}</strong>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
             <button onClick={() => setcheckfacility(false)}>close</button>
           </div>
         </div>

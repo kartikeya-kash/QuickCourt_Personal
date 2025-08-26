@@ -208,6 +208,38 @@ if (Array.isArray(sports)) {
   });
 });
 
+
+app.get("/getfacilityapproval", (req, res) => {
+  const { adminusername } = req.query;
+
+  if (!adminusername) {
+    return res.status(400).json({ message: "Missing adminusername" });
+  }
+
+  const sql = `
+    SELECT facilityId, facilityName, approved
+    FROM facility
+    WHERE adminusername = ?
+  `;
+
+  db.query(sql, [adminusername], (err, results) => {
+    if (err) {
+      console.error("❌ MySQL Error:", err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    console.log("✅ Raw MySQL Results:", results); // DEBUG
+
+    const formatted = results.map((row) => ({
+      facilityId: row.facilityId,
+      facilityName: row.facilityName,
+      status: row.approved === 1 ? "✅ Approved" : "⏳ Pending",
+    }));
+
+    res.json(formatted);
+  });
+});
+
 // ✅ Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
