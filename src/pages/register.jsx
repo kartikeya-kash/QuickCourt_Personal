@@ -5,7 +5,7 @@ function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [usernameStatus, setUsernameStatus] = useState(""); 
+  const [usernameStatus, setUsernameStatus] = useState("");
   const navigate = useNavigate();
 
   const usrn = (e) => {
@@ -16,7 +16,7 @@ function Register() {
 
   const usrnamecheck = async (name) => {
     if (!name.trim()) {
-      setUsernameStatus(""); 
+      setUsernameStatus("");
       return;
     }
 
@@ -65,12 +65,16 @@ function Register() {
     <div>
       <h1>Register Page</h1>
 
-      
-<div style={{ marginTop: "20px" }}>
+      <div style={{ marginTop: "20px" }}>
         <form onSubmit={registerindb}>
           <label>
             Username:
-            <input type="text" name="username" value={username} onChange={usrn} />
+            <input
+              type="text"
+              name="username"
+              value={username}
+              onChange={usrn}
+            />
             <span
               style={{
                 marginLeft: "10px",
@@ -84,30 +88,34 @@ function Register() {
 
           <label>
             Email:
-            <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </label>
           <br />
 
           <label>
             Password:
-            <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </label>
           <br />
 
           <button type="submit">Register</button>
         </form>
-      
-    </div>
+      </div>
 
-    <button onClick={() => navigate("/login")}>Go to Login</button>
-    <button onClick={() => navigate("/")}>Go to Home</button>
-  </div>
+      <button onClick={() => navigate("/login")}>Go to Login</button>
+      <button onClick={() => navigate("/")}>Go to Home</button>
+    </div>
   );
 }
 
 export default Register;
-
-
-
-
- 

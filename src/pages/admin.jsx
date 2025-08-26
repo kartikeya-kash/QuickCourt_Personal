@@ -43,7 +43,7 @@ const Admin = () => {
     setAddFacilitypop(true);
   };
 
-  const handleAddFacility = (e) => {
+  const handleAddFacility = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
@@ -51,7 +51,23 @@ const Admin = () => {
     // Get multiple selected sports separately
     data.sports = formData.getAll("sports");
 
-    console.log("New Facility Data:", data);
+    try {
+      const response = await fetch("http://localhost:5005/facility", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data), //send form data here
+      });
+
+      const resData = await response.json();
+      alert(resData.message);
+
+      if (response.ok) {
+        alert("Facility send for approval");
+      }
+    } catch (error) {
+      console.error("❌ Error adding new facility:", error);
+      alert("Something went wrong. Please try again later.");
+    }
 
     setAddFacilitypop(false);
   };
