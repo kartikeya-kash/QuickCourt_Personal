@@ -99,9 +99,17 @@ const Owner = () => {
             }}
           >
             <h1 style={{ textAlign: "center" }}>All Users</h1>
-            <div style={{ textAlign: "center" }}>
+            <div>
               {/* Fetch and display users here */}
-
+              <ul>
+                {usersdata.map((f) => (
+                  <p>
+                    {" "}
+                    ID:{f.id}, Name:{f.username}, Email ID:
+                    <strong>{f.email}</strong>
+                  </p>
+                ))}
+              </ul>
               <div style={{ marginTop: "10px" }}>
                 <button type="button" onClick={() => setViewUsersPopup(false)}>
                   Close

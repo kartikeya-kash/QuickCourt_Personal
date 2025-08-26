@@ -99,7 +99,7 @@ function Register() {
           <Input
             type="password"
             name="password"
-            label="Username"
+            label="Password"
             value={password}
             onChange={setPassword}
           />

@@ -240,6 +240,24 @@ app.get("/getfacilityapproval", (req, res) => {
   });
 });
 
+//get users route for owner
+app.get("/showallusers", (req, res) => {
+
+  const sql = `
+    SELECT *
+    FROM users
+  `;
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("❌ MySQL Error:", err);
+      return res.status(500).json({ message: "Database error" });
+    }
+    console.log(results);
+    res.json(results);
+  });
+});
+
 // ✅ Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
