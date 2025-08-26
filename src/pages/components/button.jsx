@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = ({ text, onClick }) => {
+const Button = ({ text, onClick, color }) => {
   return (
     <StyledWrapper>
       <div
@@ -31,7 +31,11 @@ const StyledWrapper = styled.div`
       #2e8eff 0%,
       rgba(46, 142, 255, 0) 30%
     );
-    background-color: rgba(46, 142, 255, 0.2);
+    background-color: {
+       {
+        if(color=='red')?'red': "rgba(46, 142, 255, 0.2)";
+      }
+    }
     display: flex;
     align-items: center;
     justify-content: center;
