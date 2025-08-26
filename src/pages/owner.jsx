@@ -199,7 +199,7 @@ const Owner = () => {
         </p>
         <br />
         <p>
-          Total users = <span></span>
+          Total users = <span>{usersdata.length}</span>
         </p>
         <br />
         <p>
