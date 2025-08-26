@@ -228,7 +228,7 @@ app.get("/getfacilityapproval", (req, res) => {
       return res.status(500).json({ message: "Database error" });
     }
 
-    console.log("✅ Raw MySQL Results:", results); // DEBUG
+    
 
     const formatted = results.map((row) => ({
       facilityId: row.facilityId,

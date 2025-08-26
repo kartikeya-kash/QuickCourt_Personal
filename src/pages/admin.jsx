@@ -78,6 +78,7 @@ const Admin = () => {
     setAddFacilitypop(false);
   };
 
+  //get facility approval status
   const handelcheckfacility = async () => {
     setcheckfacility(true);
     try {
@@ -88,16 +89,18 @@ const Admin = () => {
       setFacilityStatus(data);
       setcheckfacility(true);
     } catch (error) {
-      console.error("❌ Error fetching facility approval:", error);
+      console.error("Error fetching facility approval:", error);
       alert("Failed to fetch facility approval status");
     }
   };
 
   return (
     <>
-      <h1>Admin name = {adminusernamefromlocal}</h1>
+      <h1>
+        Welcome <span style={{ color: "green" }}>{adminusernamefromlocal}</span>
+      </h1>
       <p>
-        Your facility (<span></span>)
+        Your facility <span></span>
       </p>
       {/* if admin clicks on facility → show info and bookings */}
       <div>{/* show approved facilities list here */}</div>
