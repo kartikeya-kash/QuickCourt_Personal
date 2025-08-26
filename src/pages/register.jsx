@@ -10,8 +10,7 @@ function Register() {
   const [usernameStatus, setUsernameStatus] = useState("");
   const navigate = useNavigate();
 
-  const usrn = (e) => {
-    const value = e.target.value;
+  const usrn = (value) => {
     setUsername(value);
     usrnamecheck(value);
   };
