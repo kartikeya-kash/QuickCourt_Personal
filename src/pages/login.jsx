@@ -67,9 +67,11 @@ function Login() {
           onChange={setPassword}
         />
         <br />
-        <Button text="Login" onClick={handellogin} />
       </form>
-      <Button text="Register" onClick={() => navigate("/register")} />
+      <div style={{ display: "flex", gap: "10px" }}>
+        <Button text="Login" onClick={handellogin} />
+        <Button text="Register" onClick={() => navigate("/register")} />
+      </div>
     </div>
   );
 }

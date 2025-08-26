@@ -104,12 +104,14 @@ function Register() {
             onChange={setPassword}
           />
           <br />
-          <Button text="Register" onClick={registerindb} />
         </form>
+        <Button text="Register" onClick={registerindb} />
       </div>
 
-      <Button text="Login" onClick={() => navigate("/login")} />
-      <Button text="Home" onClick={() => navigate("/")} />
+      <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+        <Button text="Login" onClick={() => navigate("/login")} />
+        <Button text="Home" onClick={() => navigate("/")} />
+      </div>
     </div>
   );
 }

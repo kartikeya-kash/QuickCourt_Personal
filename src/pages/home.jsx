@@ -19,25 +19,36 @@ function Home() {
       {isloggedIn ? (
         <div>
           <h1>Welcome user</h1>
-          <button onClick={() => navigate("/")}>Home</button>
-          <button onClick={() => navigate("/facility")}>Facilities</button>
-          <button onClick={() => navigate("/mybookings")}>My Bookings</button>
-          <button onClick={() => navigate("/me")}>Me</button>
-          <Button text="Logout" onClick={logout} color="red" />
+          <div style={{ display: "flex", gap: "10px" }}>
+            <Button text="Home" onClick={() => navigate("/")} />
+            <Button text="Facilities" onClick={() => navigate("/facility")} />
+            <Button
+              text="My Bookings"
+              onClick={() => navigate("/mybookings")}
+            />
+            <Button text="Me" onClick={() => navigate("/me")} />
+            <Button text="Logout" onClick={logout} color="red" />
+          </div>
         </div>
       ) : (
         <div>
-          <button onClick={() => navigate("/login")}>Login</button>
-          <button onClick={() => navigate("/register")}>Register</button>
-          <br />
-          <button onClick={() => navigate("/")}>Home</button>
-          <button onClick={() => navigate("/facility")}>Facilities</button>
-          <button onClick={() => alert("Login to access this feature")}>
-            My Bookings
-          </button>
-          <button onClick={() => alert("Login to access this feature")}>
-            Me
-          </button>
+          <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+            <Button text="Login" onClick={() => navigate("/login")} />
+            <Button text="Register" onClick={() => navigate("/register")} />
+          </div>
+
+          <div style={{ display: "flex", gap: "10px" }}>
+            <Button text="Home" onClick={() => navigate("/")} />
+            <Button text="Facilities" onClick={() => navigate("/facility")} />
+            <Button
+              text="My Bookings"
+              onClick={() => alert("Login to access this feature")}
+            />
+            <Button
+              text="Me"
+              onClick={() => alert("Login to access this feature")}
+            />
+          </div>
         </div>
       )}
 
