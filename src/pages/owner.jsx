@@ -90,52 +90,56 @@ const Owner = () => {
     setViewUsersPopup(true);
   };
 
-  if (usersLoading) {
-    return <Loader />;
-  }
   return (
     <div>
       {/*view users pop up*/}
-      {viewuserspopup && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            background: "rgba(0, 0, 0, 0.76)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+      {usersLoading ? (
+        <Loader />
+      ) : (
+        viewuserspopup && (
           <div
             style={{
-              background: "rgba(72, 70, 70, 1)",
-              padding: "20px",
-              minWidth: "300px",
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              background: "rgba(0, 0, 0, 0.76)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <h1 style={{ textAlign: "center" }}>All Users</h1>
-            <div>
-              {/* Fetch and display users here */}
-              <ul>
-                {usersdata.map((f) => (
-                  <p key={f.id}>
-                    ID:{f.id}, Name:{f.username}, Email ID:
-                    <strong>{f.email}</strong>
-                  </p>
-                ))}
-              </ul>
-              <div style={{ marginTop: "10px" }}>
-                <button type="button" onClick={() => setViewUsersPopup(false)}>
-                  Close
-                </button>
+            <div
+              style={{
+                background: "rgba(72, 70, 70, 1)",
+                padding: "20px",
+                minWidth: "300px",
+              }}
+            >
+              <h1 style={{ textAlign: "center" }}>All Users</h1>
+              <div>
+                {/* Fetch and display users here */}
+                <ul>
+                  {usersdata.map((f) => (
+                    <p key={f.id}>
+                      ID:{f.id}, Name:{f.username}, Email ID:
+                      <strong>{f.email}</strong>
+                    </p>
+                  ))}
+                </ul>
+                <div style={{ marginTop: "10px" }}>
+                  <button
+                    type="button"
+                    onClick={() => setViewUsersPopup(false)}
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )
       )}
       {/* Add Admin Pop Up */}
       {addadmi && (
