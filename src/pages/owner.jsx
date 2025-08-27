@@ -8,6 +8,7 @@ const Owner = () => {
   const [adminusername, setadminusername] = useState("");
   const [adminemail, setadminemail] = useState("");
   const [adminpassword, setadminpassword] = useState("");
+  const [pageloaded, setPageLoaded] = useState(true);
 
   // For viewing users
   const [viewuserspopup, setViewUsersPopup] = useState(false);
@@ -34,7 +35,10 @@ const Owner = () => {
       }
     };
 
-    getuserata();
+    if (viewuserspopup || pageloaded) {
+      getuserata();
+      setPageLoaded(false);
+    }
   }, [isowner, navigate, viewuserspopup]); //If you put some variables inside (like [isloggedIn, isowner, navigate]):
   // → It runs the effect every time one of those variables changes.
 
