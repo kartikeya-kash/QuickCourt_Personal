@@ -22,7 +22,19 @@ const Owner = () => {
     } else {
       setLoading(false);
     }
-  }, [isowner, navigate]); //If you put some variables inside (like [isloggedIn, isowner, navigate]):
+
+    const getuserata = async () => {
+      try {
+        const response = await fetch(`http://localhost:5005/showallusers`);
+        const data = await response.json();
+        setUsersData(data);
+        setViewUsersPopup(true);
+      } catch (error) {
+        console.error("Error fetching users data:", error);
+        alert("Failed to fetch users data. Please try again later.");
+      }
+    };
+  }, [isowner, navigate, viewuserspopup]); //If you put some variables inside (like [isloggedIn, isowner, navigate]):
   // → It runs the effect every time one of those variables changes.
 
   if (loading) {
@@ -62,16 +74,6 @@ const Owner = () => {
 
   const showviewuserspopup = async () => {
     setViewUsersPopup(true);
-
-    try {
-      const response = await fetch(`http://localhost:5005/showallusers`);
-      const data = await response.json();
-      setUsersData(data);
-      setViewUsersPopup(true);
-    } catch (error) {
-      console.error("Error fetching users data:", error);
-      alert("Failed to fetch users data. Please try again later.");
-    }
   };
 
   return (
@@ -103,7 +105,7 @@ const Owner = () => {
               {/* Fetch and display users here */}
               <ul>
                 {usersdata.map((f) => (
-                  <p>
+                  <p key={f.id}>
                     ID:{f.id}, Name:{f.username}, Email ID:
                     <strong>{f.email}</strong>
                   </p>
