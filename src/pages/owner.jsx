@@ -28,12 +28,13 @@ const Owner = () => {
         const response = await fetch(`http://localhost:5005/showallusers`);
         const data = await response.json();
         setUsersData(data);
-        setViewUsersPopup(true);
       } catch (error) {
         console.error("Error fetching users data:", error);
         alert("Failed to fetch users data. Please try again later.");
       }
     };
+
+    getuserata();
   }, [isowner, navigate, viewuserspopup]); //If you put some variables inside (like [isloggedIn, isowner, navigate]):
   // → It runs the effect every time one of those variables changes.
 
