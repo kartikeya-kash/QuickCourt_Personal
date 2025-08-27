@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loader from "./components/loader";
 
 const Owner = () => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ const Owner = () => {
   const [adminemail, setadminemail] = useState("");
   const [adminpassword, setadminpassword] = useState("");
   const [pageloaded, setPageLoaded] = useState(true);
+  const [usersLoading, setUsersLoading] = useState(false);
 
   // For viewing users
   const [viewuserspopup, setViewUsersPopup] = useState(false);
@@ -26,12 +28,19 @@ const Owner = () => {
 
     const getuserata = async () => {
       try {
+        setUsersLoading(true); // show loader
         const response = await fetch(`http://localhost:5005/showallusers`);
         const data = await response.json();
-        setUsersData(data);
+
+        // ⏳ add 2 second delay before updating UI
+        setTimeout(() => {
+          setUsersData(data);
+          setUsersLoading(false); // hide loader after delay
+        }, 2000);
       } catch (error) {
         console.error("Error fetching users data:", error);
         alert("Failed to fetch users data. Please try again later.");
+        setUsersLoading(false);
       }
     };
 
@@ -81,6 +90,9 @@ const Owner = () => {
     setViewUsersPopup(true);
   };
 
+  if (usersLoading) {
+    return <Loader />;
+  }
   return (
     <div>
       {/*view users pop up*/}
