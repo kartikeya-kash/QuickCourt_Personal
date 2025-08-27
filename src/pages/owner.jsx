@@ -11,6 +11,8 @@ const Owner = () => {
   const [adminpassword, setadminpassword] = useState("");
   const [pageloaded, setPageLoaded] = useState(true);
   const [usersLoading, setUsersLoading] = useState(false);
+  const [viewfacilityrequestpopup, setViewFacilityRequestPopup] =
+    useState(false);
 
   // For viewing users
   const [viewuserspopup, setViewUsersPopup] = useState(false);
@@ -36,7 +38,7 @@ const Owner = () => {
         setTimeout(() => {
           setUsersData(data);
           setUsersLoading(false); // hide loader after delay
-        }, 2000);
+        }, 200);
       } catch (error) {
         console.error("Error fetching users data:", error);
         alert("Failed to fetch users data. Please try again later.");
@@ -90,6 +92,10 @@ const Owner = () => {
     setViewUsersPopup(true);
   };
 
+  const viewfacilityrequest = () => {
+    setViewFacilityRequestPopup(true);
+  };
+
   return (
     <div>
       {/*view users pop up*/}
@@ -141,6 +147,7 @@ const Owner = () => {
           </div>
         )
       )}
+
       {/* Add Admin Pop Up */}
       {addadmi && (
         <div
@@ -213,6 +220,46 @@ const Owner = () => {
           </div>
         </div>
       )}
+
+      {/*View all facilty req*/}
+      {viewfacilityrequestpopup && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "rgba(0, 0, 0, 0.76)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              background: "rgba(72, 70, 70, 1)",
+              padding: "20px",
+              minWidth: "300px",
+            }}
+          >
+            <h1 style={{ textAlign: "center" }}>Facility Requests</h1>
+            <div>
+              {/* Fetch and display facility requests here */}
+              <p>No facility requests yet.</p>
+              <div style={{ marginTop: "10px" }}>
+                <button
+                  type="button"
+                  onClick={() => setViewFacilityRequestPopup(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main Owner Dashboard */}
       <div>
         <h1>Owner Dashboard</h1>
@@ -238,7 +285,7 @@ const Owner = () => {
         <br />
         <button onClick={() => setAddAdmi(true)}>Add admins</button>
         <br />
-        <button>View Facility request</button>
+        <button onClick={viewfacilityrequest}>View Facility request</button>
         <br />
         <button>Manage Facility</button>
         <br />
