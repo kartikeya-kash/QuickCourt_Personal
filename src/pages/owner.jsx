@@ -251,13 +251,16 @@ const Owner = () => {
             style={{
               background: "rgba(72, 70, 70, 1)",
               padding: "20px",
-              minWidth: "300px",
+              width: "500px", // fixed width
+              maxHeight: "70vh", // fixed max height relative to screen
+              overflowY: "auto", // scroll inside
+              borderRadius: "10px",
             }}
           >
             <h1 style={{ textAlign: "center" }}>Facility Requests</h1>
             <div>
               {/* Fetch and display facility requests here */}
-              <ul>
+              <ul style={{ padding: 0 }}>
                 {facilityrequestsdata.map((frd) => (
                   <p key={frd.id}>
                     {frd.id}. Admin: {frd.adminusername}, ID: {frd.facilityId},
@@ -267,14 +270,13 @@ const Owner = () => {
                     {Array.isArray(frd.sports)
                       ? frd.sports.join(", ")
                       : frd.sports}
-                    , Status: {frd.approved ? "Approved ✅" : "Pending ⏳"}|{" "}
-                    {"   "}
+                    , Status: {frd.approved ? "Approved ✅" : "Pending ⏳"} |{" "}
                     <button style={{ marginLeft: "10px" }}>✅</button>{" "}
                     <button style={{ marginLeft: "10px" }}>❌</button>
                   </p>
                 ))}
               </ul>
-              <div style={{ marginTop: "10px" }}>
+              <div style={{ marginTop: "10px", textAlign: "center" }}>
                 <button
                   type="button"
                   onClick={() => setViewFacilityRequestPopup(false)}
