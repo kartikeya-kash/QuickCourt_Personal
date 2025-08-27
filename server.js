@@ -253,8 +253,48 @@ app.get("/showallusers", (req, res) => {
       console.error("❌ MySQL Error:", err);
       return res.status(500).json({ message: "Database error" });
     }
-    console.log(results);
+    
     res.json(results);
+  });
+});
+
+
+//get facility requests route for owner
+// get facility requests route for owner
+app.get("/facilityrequests", (req, res) => {
+  const sql = `SELECT * FROM facility WHERE approved = 0`;
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("❌ MySQL Error:", err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    const formattedResults = results.map((row) => {
+      let sports = [];
+
+      if (row.sports) {
+        if (typeof row.sports === "string") {
+          try {
+            // Try parsing JSON string
+            sports = JSON.parse(row.sports);
+          } catch (e) {
+            // Not JSON, fallback: split by comma
+            sports = row.sports.split(",").map((s) => s.trim());
+          }
+        } else if (Array.isArray(row.sports)) {
+          // Already an array (mysql2 might parse JSON automatically)
+          sports = row.sports;
+        } else {
+          // Unknown type (maybe Buffer if stored incorrectly)
+          sports = [String(row.sports)];
+        }
+      }
+
+      return { ...row, sports };
+    });
+
+    res.json(formattedResults);
   });
 });
 

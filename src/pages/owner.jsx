@@ -11,8 +11,10 @@ const Owner = () => {
   const [adminpassword, setadminpassword] = useState("");
   const [pageloaded, setPageLoaded] = useState(true);
   const [usersLoading, setUsersLoading] = useState(false);
+  // For viewing facility requests
   const [viewfacilityrequestpopup, setViewFacilityRequestPopup] =
     useState(false);
+  const [facilityrequestsdata, setFacilityRequestsData] = useState([]);
 
   // For viewing users
   const [viewuserspopup, setViewUsersPopup] = useState(false);
@@ -92,8 +94,17 @@ const Owner = () => {
     setViewUsersPopup(true);
   };
 
-  const viewfacilityrequest = () => {
+  const viewfacilityrequest = async () => {
     setViewFacilityRequestPopup(true);
+    try {
+      const response = await fetch(`http://localhost:5005/facilityrequests`);
+      const data = await response.json();
+      setFacilityRequestsData(data);
+    } catch (error) {
+      console.error("Error fetching users data:", error);
+      alert("Failed to fetch users data. Please try again later.");
+      setUsersLoading(false);
+    }
   };
 
   return (
@@ -246,7 +257,23 @@ const Owner = () => {
             <h1 style={{ textAlign: "center" }}>Facility Requests</h1>
             <div>
               {/* Fetch and display facility requests here */}
-              <p>No facility requests yet.</p>
+              <ul>
+                {facilityrequestsdata.map((frd) => (
+                  <p key={frd.id}>
+                    {frd.id}. Admin: {frd.adminusername}, ID: {frd.facilityId},
+                    Name: {frd.facilityName}, Phone: {frd.facilityPhone}, Email:{" "}
+                    {frd.facilityEmail}, Location: {frd.facilityLocation},
+                    Sports:{" "}
+                    {Array.isArray(frd.sports)
+                      ? frd.sports.join(", ")
+                      : frd.sports}
+                    , Status: {frd.approved ? "Approved ✅" : "Pending ⏳"}|{" "}
+                    {"   "}
+                    <button style={{ marginLeft: "10px" }}>✅</button>{" "}
+                    <button style={{ marginLeft: "10px" }}>❌</button>
+                  </p>
+                ))}
+              </ul>
               <div style={{ marginTop: "10px" }}>
                 <button
                   type="button"
