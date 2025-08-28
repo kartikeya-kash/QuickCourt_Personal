@@ -107,6 +107,23 @@ const Owner = () => {
     }
   };
 
+  const faclityyesno = (id) => async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:5005/facilityrequestapprove`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id }),
+        }
+      );
+    } catch (error) {
+      console.error("❌ Error during approving facility request:", error);
+      alert("Something went wrong. Please try again later.");
+    }
+  };
+
   return (
     <div>
       {/*view users pop up*/}
@@ -271,8 +288,18 @@ const Owner = () => {
                       ? frd.sports.join(", ")
                       : frd.sports}
                     , Status: {frd.approved ? "Approved ✅" : "Pending ⏳"} |{" "}
-                    <button style={{ marginLeft: "10px" }}>✅</button>{" "}
-                    <button style={{ marginLeft: "10px" }}>❌</button>
+                    <button
+                      style={{ marginLeft: "10px" }}
+                      onClick={faclityyesno(frd.id)}
+                    >
+                      ✅
+                    </button>{" "}
+                    <button
+                      style={{ marginLeft: "10px" }}
+                      onClick={faclityyesno(frd.id)}
+                    >
+                      ❌
+                    </button>
                   </p>
                 ))}
               </ul>
