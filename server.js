@@ -297,17 +297,19 @@ app.get("/facilityrequests", (req, res) => {
   });
 });
 
-router.post("/facilityrequestapprove", async (req, res) => {
+app.post("/facilityrequestapprove", async (req, res) => {
   try {
     const { id, status } = req.body;
 
     if (!id || !status) {
-      return res.status(400).json({ success: false, message: "ID and status are required" });
+      return res
+        .status(400)
+        .json({ success: false, message: "ID and status are required" });
     }
 
-    const approvedValue = (status === "yes") ? 1 : 0;
+    const approvedValue = status === "yes" ? 1 : 0;
 
-    const updateQuery = "UPDATE facility SET approved = ? WHERE facilityId = ?";
+    const updateQuery = "UPDATE facility SET approved = ? WHERE id = ?";
 
     await new Promise((resolve, reject) => {
       db.query(updateQuery, [approvedValue, id], (err, result) => {
@@ -320,7 +322,9 @@ router.post("/facilityrequestapprove", async (req, res) => {
     res.json({ success: true, message: `Request ${status}`, id });
   } catch (error) {
     console.error("❌ Error updating facility request:", error);
-    res.status(500).json({ success: false, message: "Server error" });
+    res
+      .status(500)
+      .json({ success: false, message: "Server error" });
   }
 });
 
