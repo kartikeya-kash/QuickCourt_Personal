@@ -9,9 +9,7 @@ const Card = ({ name, location }) => {
         <div className="card-info">
           <span>{name}</span>
           <p>{location}</p>
-          <a href="#" className="button">
-            Book Now
-          </a>
+          <a className="button">Book Now</a>
         </div>
       </div>
     </StyledWrapper>
@@ -51,6 +49,7 @@ const StyledWrapper = styled.div`
       rgba(252, 176, 69, 1) 100%
     );
     transition: all 0.5s ease;
+    z-index: 0;
   }
 
   .card * {
@@ -110,6 +109,16 @@ const StyledWrapper = styled.div`
   .button:hover {
     background-color: #ec9c12ff;
     transform: scale(1.05);
+  }
+  .card-content h2 {
+    font-size: 1.2rem;
+    margin: 0 0 10px;
+    color: #fff; /* white for contrast */
+  }
+
+  .card-content p {
+    margin: 0 0 15px;
+    color: #f0f0f0; /* light grey */
   }
 `;
 
