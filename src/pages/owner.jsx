@@ -138,6 +138,7 @@ const Owner = () => {
           status === "yes" ? "approved" : "rejected"
         } successfully!`
       );
+      viewfacilityrequest(); // Refresh the list after update
     } catch (error) {
       console.error("❌ Error during facility request update:", error);
       alert("Something went wrong. Please try again later.");
