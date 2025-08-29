@@ -26,15 +26,18 @@ const Facility = () => {
   }
 
   return (
-    <GridWrapper>
-      {Facilitydata.map((facility) => (
-        <Card
-          key={facility.id}
-          name={facility.facilityName}
-          location={facility.facilityLocation}
-        />
-      ))}
-    </GridWrapper>
+    <>
+      <h1 style={{ textAlign: "center" }}>Facility Page</h1>
+      <GridWrapper>
+        {Facilitydata.map((facility) => (
+          <Card
+            key={facility.id}
+            name={facility.facilityName}
+            location={facility.facilityLocation}
+          />
+        ))}
+      </GridWrapper>
+    </>
   );
 };
 
