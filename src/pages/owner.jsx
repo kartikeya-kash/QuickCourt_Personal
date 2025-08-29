@@ -55,10 +55,12 @@ const Owner = () => {
   }, [isowner, navigate, viewuserspopup]); //If you put some variables inside (like [isloggedIn, isowner, navigate]):
   // → It runs the effect every time one of those variables changes.
 
+  //loading screen
   if (loading) {
     return <h2>Checking access...</h2>;
   }
 
+  //add admin function
   const addadmin = async (e) => {
     e.preventDefault();
 
@@ -84,16 +86,19 @@ const Owner = () => {
     }
   };
 
+  //logout function
   const logout = () => {
     localStorage.removeItem("isloggedin");
     localStorage.removeItem("role");
     navigate("/");
   };
 
+  //view users pop up
   const showviewuserspopup = async () => {
     setViewUsersPopup(true);
   };
 
+  //view facility request
   const viewfacilityrequest = async () => {
     setViewFacilityRequestPopup(true);
     try {
@@ -107,19 +112,34 @@ const Owner = () => {
     }
   };
 
-  const faclityyesno = (id) => async (e) => {
+  //accept or reject facility request
+  const faclityyesno = (id, status) => async (e) => {
     e.preventDefault();
+
     try {
       const response = await fetch(
-        `http://localhost:5005/facilityrequestapprove`,
+        "http://localhost:5005/facilityrequestapprove",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id }),
+          body: JSON.stringify({ id, status }), // send both id + status
         }
       );
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("✅ Facility request updated:", data);
+
+      alert(
+        `Facility request ${
+          status === "yes" ? "approved" : "rejected"
+        } successfully!`
+      );
     } catch (error) {
-      console.error("❌ Error during approving facility request:", error);
+      console.error("❌ Error during facility request update:", error);
       alert("Something went wrong. Please try again later.");
     }
   };
@@ -290,13 +310,13 @@ const Owner = () => {
                     , Status: {frd.approved ? "Approved ✅" : "Pending ⏳"} |{" "}
                     <button
                       style={{ marginLeft: "10px" }}
-                      onClick={faclityyesno(frd.id)}
+                      onClick={faclityyesno(frd.id, "yes")}
                     >
                       ✅
                     </button>{" "}
                     <button
                       style={{ marginLeft: "10px" }}
-                      onClick={faclityyesno(frd.id)}
+                      onClick={faclityyesno(frd.id, "no")}
                     >
                       ❌
                     </button>

@@ -259,7 +259,6 @@ app.get("/showallusers", (req, res) => {
 });
 
 
-//get facility requests route for owner
 // get facility requests route for owner
 app.get("/facilityrequests", (req, res) => {
   const sql = `SELECT * FROM facility WHERE approved = 0`;
@@ -297,6 +296,34 @@ app.get("/facilityrequests", (req, res) => {
     res.json(formattedResults);
   });
 });
+
+router.post("/facilityrequestapprove", async (req, res) => {
+  try {
+    const { id, status } = req.body;
+
+    if (!id || !status) {
+      return res.status(400).json({ success: false, message: "ID and status are required" });
+    }
+
+    const approvedValue = (status === "yes") ? 1 : 0;
+
+    const updateQuery = "UPDATE facility SET approved = ? WHERE facilityId = ?";
+
+    await new Promise((resolve, reject) => {
+      db.query(updateQuery, [approvedValue, id], (err, result) => {
+        if (err) return reject(err);
+        resolve(result);
+      });
+    });
+
+    console.log(`Facility request ${id} marked as: ${status}`);
+    res.json({ success: true, message: `Request ${status}`, id });
+  } catch (error) {
+    console.error("❌ Error updating facility request:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
 
 // ✅ Start server
 app.listen(PORT, () => {
