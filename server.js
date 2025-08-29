@@ -318,7 +318,6 @@ app.post("/facilityrequestapprove", async (req, res) => {
       });
     });
 
-    console.log(`Facility request ${id} marked as: ${status}`);
     res.json({ success: true, message: `Request ${status}`, id });
   } catch (error) {
     console.error("❌ Error updating facility request:", error);
