@@ -137,3 +137,9 @@ cd frontend
 npm install
 npm run dev
 ```
+
+## 📞 Looking for Frontend Contributors
+
+We are looking for talented **frontend developers** to help build and enhance the QuickCourt user interface. If you are skilled in **React.js, TailwindCSS/Styled Components, and responsive design**, we would love to collaborate with you!
+
+**Contact:** Kartikeya Sharma – kartikeya.anjul@gmail.com
