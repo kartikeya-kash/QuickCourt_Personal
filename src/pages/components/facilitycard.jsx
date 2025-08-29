@@ -9,10 +9,10 @@ const Card = ({ name, location }) => {
         <div className="card-info">
           <span>{name}</span>
           <p>{location}</p>
+          <a href="#" className="button">
+            Book Now
+          </a>
         </div>
-        <a href="#" className="button">
-          Book Now
-        </a>
       </div>
     </StyledWrapper>
   );
@@ -20,29 +20,30 @@ const Card = ({ name, location }) => {
 
 const StyledWrapper = styled.div`
   .card {
-    width: 350px;
-    height: 300px;
+    width: 200px; /* reduced size */
+    height: 300px; /* let content decide height */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    padding: 20px 15px;
     text-align: center;
-    gap: 10px;
+    gap: 15px;
     background-color: #fffffe;
     border-radius: 15px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
   .card::before {
     content: "";
-    width: 350px;
+    width: 100%;
     height: 100px;
     position: absolute;
     top: 0;
+    left: 0;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    border-bottom: 3px solid #fefefe;
     background: linear-gradient(
       40deg,
       rgba(131, 58, 180, 1) 0%,
@@ -57,65 +58,58 @@ const StyledWrapper = styled.div`
   }
 
   .image {
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 80px;
     background-color: #1468bf;
     border-radius: 50%;
     border: 4px solid #fefefe;
-    margin-top: 30px;
-    transition: all 0.5s ease;
+    margin-top: 40px;
+    transition: transform 0.5s ease;
   }
 
   .card-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    transition: all 0.5s ease;
+    gap: 8px;
+    margin-top: 10px;
   }
 
   .card-info span {
     font-weight: 600;
-    font-size: 24px;
+    font-size: 20px;
     color: #161a42;
-    margin-top: 15px;
-    line-height: 5px;
   }
 
   .card-info p {
     color: rgba(0, 0, 0, 0.5);
+    font-size: 14px;
   }
 
   .button {
+    margin-top: 10px;
     text-decoration: none;
     background-color: #1468bf;
     color: white;
-    padding: 5px 20px;
-    border-radius: 5px;
+    padding: 6px 16px;
+    border-radius: 6px;
     border: 1px solid white;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
+    font-size: 14px;
   }
 
+  /* Hover Effects */
   .card:hover::before {
-    width: 350px;
-    height: 300px;
-    border-bottom: none;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    transform: scale(0.95);
-  }
-
-  .card:hover .card-info {
-    transform: translate(0%, -25%);
+    height: 100%;
   }
 
   .card:hover .image {
-    transform: scale(2) translate(-60%, -40%);
+    transform: scale(1.2); /* keep circle round */
   }
 
   .button:hover {
     background-color: #ec9c12ff;
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 `;
 
