@@ -35,15 +35,20 @@ const Facility = () => {
   }
 
   return (
-    <>
-      <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
+    <PageWrapper>
+      {/* Navbar */}
+      <Navbar>
         <Button text="Home" onClick={() => navigate("/")} />
         <Button text="Facilities" onClick={() => navigate("/facility")} />
         <Button text="My Bookings" onClick={() => navigate("/mybookings")} />
         <Button text="Me" onClick={() => navigate("/me")} />
         <Button text="Logout" onClick={logout} color="red" />
-      </div>
-      <h1 style={{ textAlign: "center" }}>Facility Page</h1>
+      </Navbar>
+
+      {/* Page Title */}
+      <h1>Facility Page</h1>
+
+      {/* Facility Cards Grid */}
       <GridWrapper>
         {Facilitydata.map((facility) => (
           <Card
@@ -53,16 +58,33 @@ const Facility = () => {
           />
         ))}
       </GridWrapper>
-    </>
+    </PageWrapper>
   );
 };
 
 export default Facility;
 
+/* Styled Components */
+const PageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+`;
+
+const Navbar = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
 const GridWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
-  padding: 20px;
-  justify-items: center; /* center cards in their grid cell */
+  width: 100%;
+  max-width: 1200px;
+  justify-items: center;
 `;
